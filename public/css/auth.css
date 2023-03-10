@@ -491,3 +491,7 @@ input:valid + span::after {
     position: absolute;
     content: '✓';
 }
+
+.error {
+    color: red;
+}

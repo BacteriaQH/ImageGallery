@@ -10,6 +10,7 @@ const dotenv = require('dotenv').config();
 const conn = require('./config/db');
 
 const view = require('./routes/ViewRoute');
+const api = require('./routes/ApiRoute');
 
 conn();
 
@@ -72,9 +73,9 @@ app.use(
 app.use(csrf('csrfarelikesnowbeautifulbutdead1', ['POST']));
 
 app.use('/', view);
-
+app.use('/api', api);
 app.use((req, res, next) => {
-    res.render('404', { pageTitle: 'Page Not Found' });
+    res.render('404', { title: 'Page Not Found' });
 });
 app.listen(8000, () => {
     console.log('Server is running on port 8000');
