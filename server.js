@@ -7,7 +7,12 @@ const helmet = require('helmet');
 const csrf = require('tiny-csrf');
 const dotenv = require('dotenv').config();
 
+const conn = require('./config/db');
+
 const view = require('./routes/ViewRoute');
+
+conn();
+
 const app = express();
 
 app.set('view engine', 'ejs');

@@ -2,4 +2,3 @@ node_modules
 .env
 seeders
 /config/config.json
-migrations
