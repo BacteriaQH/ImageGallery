@@ -2,36 +2,98 @@
 <html lang="en">
 
 <head>
-  <%- include('../../partials/head') %>
+  <%- include('../partials/head') %>
 
   <!--Custon CSS-->
-  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 
-</html>
+
 
 <body>
+  <%- include('../partials/header') %>
 
-
-  <header class="header-section">
-    <a href="/" class="site-logo">
-      <span>Image</span>
-      <p>Gallery</p>
-    </a>
-    <div class="header-controls">
-      <img class="dropdown" src="https://i.pinimg.com/736x/19/15/87/191587b38fb54a82998a55a69e78d375.jpg" style="width: 80px" alt="">
-      <ul class="sub-menu">
-        <li><a href="/sxxcscc">Personal Page</a></li>
-        <li><a href="/sxxcscc">Setting </a></li>
-        <li><a href="/sxxcscc">Logout</a></a></li>
-      </ul>
-    </div>
-  </header>
   <section>
     <div class="container">
       <div class="row">
-        <%= pageTitle %>
+        <div class="image-box col-lg-3 col-md-6 col-sm-3">
+          <center>
+            <img class="small-image" src="https://i.pinimg.com/736x/19/15/87/191587b38fb54a82998a55a69e78d375.jpg" alt="conan">
+          </center>
+          <div class="content">
+            <div class="username"><a href="/">Conan</a></div>
+            <div class="date">2021</div>
+          </div>
+        </div>
+        <div class="image-box col-lg-3 col-md-6 col-sm-3">
+          <center>
+            <img class="small-image" src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2022/09/anh-conan-dep-nhat-1.jpg?ssl=1" alt="conan">
+          </center>
+          <div class="content">
+            <div class="username"><a href="/">Conan</a></div>
+            <div class="date">2021</div>
+          </div>
+        </div>
+        <div class="image-box col-lg-3 col-md-6 col-sm-3">
+          <center>
+            <img class="small-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTg7leYb5aLv9RpVTElhifTayrcVcw_s2lwFQ&usqp=CAU" alt="conan">
+          </center>
+          <div class="content">
+            <div class="username"><a href="/">Conan</a></div>
+            <div class="date">2021</div>
+          </div>
+        </div>
+        <div class="image-box col-lg-3 col-md-6 col-sm-3">
+          <center>
+            <img class="small-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfq_xA73iVevjsQpJrBEiNgVHw8yqaaSAdQg&usqp=CAU" alt="conan">
+          </center>
+          <div class="content">
+            <div class="username"><a href="/">Conan</a></div>
+            <div class="date">2021</div>
+          </div>
+        </div>
+        <div class="image-box col-lg-3 col-md-6 col-sm-3">
+          <center>
+            <img class="small-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX-gHQx7Lhp0ASHAD6XxfpdO8g2lO6Kt7rWQ&usqp=CAU" alt="conan">
+          </center>
+          <div class="content">
+            <div class="username"><a href="/">Conan</a></div>
+            <div class="date">2021</div>
+          </div>
+        </div>
+        <div class="image-box col-lg-3 col-md-6 col-sm-3">
+          <center>
+            <img class="small-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRehmRnZwMDu2Mh12sH0EVdfq39BddFBehK9Q&usqp=CAU" alt="conan">
+          </center>
+          <div class="content">
+            <div class="username"><a href="/">Conan</a></div>
+            <div class="date">2021</div>
+          </div>
+        </div>
+        <div class="image-box col-lg-3 col-md-6 col-sm-3">
+          <center>
+            <img class="small-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSbRj39cOk4V3AQJ1kTM_vFKym_nltE5FHDw&usqp=CAU" alt="conan">
+          </center>
+          <div class="content">
+            <div class="username"><a href="/">Conan</a></div>
+            <div class="date">2021</div>
+          </div>
+        </div>
+        <div class="image-box col-lg-3 col-md-6 col-sm-3">
+          <center>
+            <img class="small-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpStZAWd8rjXh8OvcB08VQ6U1ughpILCa99g&usqp=CAU" alt="conan">
+          </center>
+          <div class="content">
+            <div class="username"><a href="/">Conan</a></div>
+            <div class="date">2021</div>
+          </div>
+        </div>
       </div>
+    </div>
+    <div id="image-popup">
+      <button id="close-btn">X</button>
+      <br>
+      <center><img src="" id="large-image" alt=""></center>
     </div>
   </section>
 
@@ -48,4 +110,9 @@
       </div>
     </div>
   </footer>
+
+  <script src="./js/index.js"></script>
+
 </body>
+
+</html>
