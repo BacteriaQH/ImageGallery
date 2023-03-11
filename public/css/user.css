@@ -1,0 +1,10 @@
+.add-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    margin: 50px;
+    font-size: 70px;
+    border: 1px solid #82a5e1;
+}

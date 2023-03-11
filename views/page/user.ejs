@@ -6,14 +6,18 @@
 
   <!--Custon CSS-->
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/user.css">
 </head>
 
-</html>
 
 <body>
   <%- include('../partials/header') %>
 
   <section>
+    <div class="add-image">
+      <label for="input-image"><i class="fa-solid fa-plus"></i></label>
+      <input type="file" style="display: none;" id="input-image">
+    </div>
     <div class="container">
       <div class="row">
         <%= title %>
@@ -34,4 +38,7 @@
       </div>
     </div>
   </footer>
+  <script src="../js/user.js"></script>
 </body>
+
+</html>
