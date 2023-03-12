@@ -39,6 +39,8 @@ app.use(
                 'https://i.pinimg.com/',
                 'https://encrypted-tbn0.gstatic.com',
                 'https://i0.wp.com',
+                'https://drive.google.com',
+                'https://*.googleusercontent.com',
             ],
             connectSrc: ["'self'"],
         },
@@ -52,7 +54,7 @@ app.use(
     }),
 );
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.SECRET_KEY));
 app.use(express.static('public'));
 // xss protected
@@ -70,7 +72,7 @@ app.use(
     }),
 );
 // csrf protected
-app.use(csrf('csrfarelikesnowbeautifulbutdead1', ['POST']));
+app.use(csrf('csrfarelikesnowbeautifulbutdead1', ['POST'], ['/api', /\/api\.*/i]));
 
 app.use('/', view);
 app.use('/api', api);
