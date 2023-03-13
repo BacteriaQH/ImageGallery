@@ -10,9 +10,13 @@
 
 <body>
   <section class="main-content">
-    <h1>404 | Page Not Found</h1>
+    <h1><%=error %></h1>
     <div>
-      <a href="/">Go Back</a>
+      <% if (type != 404) { %>
+      <a href="/login">Go to Login</a>
+      <% } else { %>
+      <a href="/">Go to Home</a>
+      <% } %>
     </div>
   </section>
 </body>

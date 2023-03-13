@@ -49,8 +49,8 @@ app.use(
 
 app.use(
     cors({
-        origin: 'http://localhost:3001',
-        credentials: true,
+        // origin: 'http://localhost:8000',
+        origin: true,
     }),
 );
 
@@ -77,7 +77,7 @@ app.use(csrf('csrfarelikesnowbeautifulbutdead1', ['POST'], ['/api', /\/api\.*/i]
 app.use('/', view);
 app.use('/api', api);
 app.use((req, res, next) => {
-    res.render('404', { title: 'Page Not Found' });
+    res.render('404', { title: 'Page Not Found', error: '404 Page Not Found', type: 404 });
 });
 app.listen(8000, () => {
     console.log('Server is running on port 8000');
