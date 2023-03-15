@@ -20,8 +20,8 @@ const RegisterController = async (req, res) => {
     }
 };
 const LoginController = async (req, res) => {
-    const { username, password } = req.body;
-    const user = await findUserByName(username);
+    const { name, password } = req.body;
+    const user = await findUserByName(name);
 
     if (user) {
         const isMatch = await comparePassword(password, user.password);
@@ -31,28 +31,16 @@ const LoginController = async (req, res) => {
             const refreshToken = generateRefreshToken(user);
             res.cookie('refresh_token', refreshToken, {
                 httpOnly: true,
-                secure: true,
+                secure: false,
                 sameSite: 'strict',
             });
-            req.session.user = {
-                id: user.id,
-                username: user.username,
-                role: user.role,
-                createdAt: user.createdAt,
-                updatedAt: user.updatedAt,
-                accessToken,
-            };
-            req.session.save();
-            return res.redirect('/');
+            const { password, ...userWithoutPassword } = user;
+            return res.status(200).json({ code: 200, user: userWithoutPassword, accessToken });
         } else {
-            console.log('Wrong password');
-            req.session.err = 'Wrong password';
-            return res.redirect('/login');
+            return res.status(200).json({ code: 400, message: 'Password is incorrect' });
         }
     } else {
-        console.log('User not found');
-        req.session.err = 'User not found';
-        return res.redirect('/login');
+        return res.status(200).json({ code: 403, message: 'Username not found' });
     }
 };
 module.exports = {

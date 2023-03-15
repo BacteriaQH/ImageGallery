@@ -1,6 +1,7 @@
 const { google } = require('googleapis');
 const path = require('path');
 const fs = require('fs');
+const { Readable } = require('stream');
 const { generateRandomString } = require('../util/random');
 
 const DRIVE_CLIENT_ID = process.env.DRIVE_CLIENT_ID;
@@ -32,11 +33,10 @@ const CreateFolderController = async (req, res) => {
     }
 };
 const UploadFileController = async (req, res) => {
-    // const file = req.files.file;
-    // const filename = file.name;
-    const filePath = path.join(__dirname, '../public/img/signup-image.jpg');
-    const baseName = path.basename(filePath).split('.')[0];
-    const fileExt = path.extname(filePath).split('.')[1];
+    const file = req.files.file;
+    const filename = file.name;
+    const baseName = filename.split('.')[0];
+    const fileExt = filename.split('.')[1];
     const fileName = `${baseName}_${generateRandomString(10)}.${fileExt}`.replaceAll(' ', '_').replaceAll('-', '_');
     try {
         const fileS = await drive.files.create({
@@ -45,8 +45,8 @@ const UploadFileController = async (req, res) => {
                 parents: [DRIVE_FOLDER_ID],
             },
             media: {
-                mimeType: 'image/jpg', //file.mimetype,
-                body: fs.createReadStream(filePath), //file.data,
+                mimeType: file.mimetype,
+                body: Readable.from(file.data),
             },
             fields: 'id',
         });
@@ -69,9 +69,10 @@ const UploadFileController = async (req, res) => {
 };
 
 const DeleteFileController = async (req, res) => {
+    const fileId = req.body.fileId;
     try {
         const fileD = await drive.files.delete({
-            fileId: '1EuTbNq7EpA3zQj0K_Ro0XbH_J7w1Th0N',
+            fileId: fileId,
         });
         console.log(fileD.data, fileD.status);
         return res.status(200).json({ message: 'OK' });

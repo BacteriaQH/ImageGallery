@@ -5,6 +5,8 @@ const session = require('express-session');
 const cors = require('cors');
 const helmet = require('helmet');
 const csrf = require('tiny-csrf');
+const fileupload = require('express-fileupload');
+const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv').config();
 
 const conn = require('./config/db');
@@ -19,6 +21,14 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
+app.use(
+    '/api',
+    rateLimit({
+        windowMs: 15 * 60 * 1000, // 15 minutes
+        max: 100, // limit each IP to 100 requests per windowMs
+        message: " 'Too many requests",
+    }),
+);
 //change http header to secure:
 app.use(
     helmet.contentSecurityPolicy({
@@ -49,12 +59,13 @@ app.use(
 
 app.use(
     cors({
-        // origin: 'http://localhost:8000',
-        origin: true,
+        origin: 'http://localhost:8000',
+        // origin: true,
     }),
 );
-
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(fileupload());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cookieParser(process.env.SECRET_KEY));
 app.use(express.static('public'));
 // xss protected

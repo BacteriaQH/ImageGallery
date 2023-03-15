@@ -21,7 +21,7 @@ const findUserById = async (id) => {
 const findUserByName = async (username) => {
     try {
         const userS = await db.User.findOne({ where: { username: username } });
-        return userS;
+        return userS.dataValues;
     } catch (error) {
         console.log(error);
         return false;
