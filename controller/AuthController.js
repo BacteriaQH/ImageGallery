@@ -1,8 +1,12 @@
+const redis = require('redis');
 const { v4: uuidv4 } = require('uuid');
 
 const { createUser, findUserByName } = require('../service/user');
 const { hashPassword, comparePassword } = require('../util/hash');
 const { generateAccessToken, generateRefreshToken } = require('../util/jwt');
+
+// const RedisService = require('../service/redis');
+const redisClient = redis.createClient();
 
 const RegisterController = async (req, res) => {
     const { username, password } = req.body;
@@ -22,11 +26,15 @@ const RegisterController = async (req, res) => {
 const LoginController = async (req, res) => {
     const { name, password } = req.body;
     const user = await findUserByName(name);
-
     if (user) {
         const isMatch = await comparePassword(password, user.password);
         if (isMatch) {
+            await redisClient.connect();
             console.log('Login success');
+            const token = redisClient.get(user.id);
+            if (token) {
+                console.log(token);
+            }
             const accessToken = generateAccessToken(user);
             const refreshToken = generateRefreshToken(user);
             res.cookie('refresh_token', refreshToken, {
@@ -35,6 +43,7 @@ const LoginController = async (req, res) => {
                 sameSite: 'strict',
             });
             const { password, ...userWithoutPassword } = user;
+            await redisClient.set({ key: user.id, value: accessToken, timeType: 'EX', time: 60 * 60 });
             return res.status(200).json({ code: 200, user: userWithoutPassword, accessToken });
         } else {
             return res.status(200).json({ code: 400, message: 'Password is incorrect' });

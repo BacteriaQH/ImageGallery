@@ -2,6 +2,7 @@ $(window).on('load', function () {
     $('#login').click(function () {
         const name = $('#name').val();
         const password = $('#password').val();
+        $('#err').text('');
         $('#noti').text('Loading...');
         login(name, password);
     });
