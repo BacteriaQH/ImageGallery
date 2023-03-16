@@ -2,6 +2,7 @@ $(window).on('load', function () {
     $('#login').click(function () {
         const name = $('#name').val();
         const password = $('#password').val();
+        $('#noti').text('Loading...');
         login(name, password);
     });
 });
@@ -9,6 +10,7 @@ $(window).on('load', function () {
 const login = async (name, password) => {
     const res = await axios.post('/api/login', { name, password });
     if (res.data.code === 200) {
+        $('#noti').text('');
         //save token to local storage
         localStorage.setItem('token', res.data.accessToken);
         //save user to local storage
@@ -16,6 +18,7 @@ const login = async (name, password) => {
         //redirect to home page
         window.location.href = '/';
     } else if (res.data.code === 400 || res.data.code === 403) {
+        $('#noti').text('');
         $('#err').text(res.data.message);
     }
 };
