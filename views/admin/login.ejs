@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head') %>
+  <!-- <link rel="stylesheet" href="/css/auth.css"> -->
+  <script src="../js/login.js"></script>
+</head>
+
+<body>
+  <form method="POST" id="signup-form" action="/admin/login">
+    <input id="_csrf" name="_csrf" value="<%= csrfToken  %>" type="hidden" />
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username">
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password">
+    <button id="login">Login</button>
+    <% if (error) { %>
+    <%= error %>
+    <% } %>
+  </form>
+</body>

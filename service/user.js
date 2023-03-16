@@ -1,3 +1,4 @@
+const { dns } = require('googleapis/build/src/apis/dns');
 const db = require('../models/index');
 const createUser = async (user) => {
     try {
@@ -45,10 +46,20 @@ const deleteUser = async (id) => {
         return false;
     }
 };
+const updateUserToAdmin = async(id)=>{
+    try {
+        const userS = await db.User.update({role: '1'}, {where: {id: id}})
+        return userS
+    } catch (error) {
+        console.log(error);
+        return false
+    }
+}
 module.exports = {
     createUser,
     findUserById,
     findUserByName,
     getAllUser,
     deleteUser,
+    updateUserToAdmin
 };

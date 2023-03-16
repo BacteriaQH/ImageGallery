@@ -2,10 +2,11 @@
 <html lang="en">
 
 <head>
-  <%- include('../../partials/head') %>
+  <%- include('./../partials/head') %>
 
   <!--Custon CSS-->
   <link rel="stylesheet" href="../../css/style.css">
+  <script src="../../js/admin/delete.js"></script>
 </head>
 
 </html>
@@ -13,26 +14,23 @@
 <body>
 
 
-  <header class="header-section">
-    <a href="/" class="site-logo">
-      <span>Image</span>
-      <p>Gallery</p>
-    </a>
-    <div class="header-controls">
-      <img class="dropdown" src="https://i.pinimg.com/736x/19/15/87/191587b38fb54a82998a55a69e78d375.jpg" style="width: 80px" alt="">
-      <ul class="sub-menu">
-        <li><a href="/sxxcscc">Personal Page</a></li>
-        <li><a href="/sxxcscc">Setting </a></li>
-        <li><a href="/sxxcscc">Logout</a></a></li>
-      </ul>
+ 
+  <section class="main-content" style="margin: 20px">
+    <h3 style="margin-bottom: 30px;">List user</h3>
+    <input name="_csrf" value="<%= csrfToken  %>" type="hidden" id="_csrf" />
+    <% for( let i = 0; i < users.length; i++ ) { %>
+    <div class="user" style="display: inline-flex;">
+      <p style="margin-right: 20px;"><%= users[i].id %></p>
+      <p style="font-weight: 800;margin-right: 20px;"><%= users[i].username %></p>
+      <p ><%= users[i].role === '1' ? "Admin" : "User" %></p>
     </div>
-  </header>
-  <section>
-    <div class="container">
-      <div class="row">
-        <%= pageTitle %>
-      </div>
-    </div>
+    <button class="btn btn-primary" id="delete" style="margin-left: 20px" value="<%= users[i].id %>">Delete</button>
+    <% if (users[i].role !== '1') { %>
+      <button class="btn btn-primary" id="promote" style="margin-left: 20px" value="<%= users[i].id %>">Promote</button>
+    <% } %>
+    <div></div>
+    <br>
+    <% } %>
   </section>
 
 
