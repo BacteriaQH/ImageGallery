@@ -31,10 +31,10 @@ const LoginController = async (req, res) => {
         if (isMatch) {
             await redisClient.connect();
             console.log('Login success');
-            const token = redisClient.get(user.id);
-            if (token) {
-                console.log(token);
-            }
+            // const token = await redisClient.get(user.id);
+            // if (token) {
+            //     console.log('token:', token);
+            // }
             const accessToken = generateAccessToken(user);
             const refreshToken = generateRefreshToken(user);
             res.cookie('refresh_token', refreshToken, {
@@ -43,7 +43,8 @@ const LoginController = async (req, res) => {
                 sameSite: 'strict',
             });
             const { password, ...userWithoutPassword } = user;
-            await redisClient.set({ key: user.id, value: accessToken, timeType: 'EX', time: 60 * 60 });
+            await redisClient.set(user.id, accessToken);
+            await redisClient.expire(user.id, 60*60)
             return res.status(200).json({ code: 200, user: userWithoutPassword, accessToken });
         } else {
             return res.status(200).json({ code: 400, message: 'Password is incorrect' });
